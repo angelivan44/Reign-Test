@@ -27,6 +27,8 @@ const StyleImg = styled.img`
     width: ${props => props.type == "time" ? "16px" : "24px"};
     font-size: 16px;
     font-weight: 500;
+    margin:0;
+    padding: 0;
     letter-spacing: normal;
     text-align: center;
     color: ${props => props.status == props.content ? "#1797ff" : "#000"};

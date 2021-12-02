@@ -11,7 +11,6 @@ export default function Tab( { status , content, onClick }) {
 const StyleDiv = styled.div`
   width: 98px;
   height: 31px;
-  padding: 3px 39px 0 40px;
   border-radius: 2px;
   border: solid 1px ${props => props.status == props.content ? "#1797ff" : "#000"};
   display: flex;
