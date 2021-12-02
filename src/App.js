@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Card from "./Components/Card";
 import Icon from "./Components/Icon";
+import Search from "./Components/Search";
 import Tab from "./Components/Tab";
 
 function App() {
@@ -16,6 +17,8 @@ function App() {
     <Icon type="favorite"></Icon>
     <Icon type="nofavorite"></Icon>
     <Card timedata = " asdsad sfdsd" type = "favorite"  body ="sdsadasdasdasdasd"></Card>
+    <Search></Search>
+    <p>golalaala</p>
     </div>
   );
 }
