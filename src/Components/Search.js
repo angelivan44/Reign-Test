@@ -11,11 +11,11 @@ export default function Search( ) {
         <p>Select your news</p>
         <StyleP>&lt;</StyleP>
       </StyleDiv>
-      <StyleOl toggle={toggle}>
+      <StyleUl toggle={toggle}>
         <li><Icon type="angular"></Icon>Angular</li>
         <li><Icon type="react"></Icon>Reacts</li>
         <li><Icon type="vue"></Icon>Vuejs</li>
-      </StyleOl>
+      </StyleUl>
     </StyleContainer>
   );
 }
@@ -34,7 +34,7 @@ const StyleP = styled.p`
   transform : rotate(-90deg);
   margin:0;
 `
-const StyleOl = styled.ol`
+const StyleUl = styled.ul`
   display:${props => props.toggle ? "block" : "none"};
   list-style: none;
   background-color:#fff;
