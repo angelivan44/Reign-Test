@@ -1,18 +1,19 @@
 import styled from "@emotion/styled";
 import Icon from "./Icon";
 
-export default function Card({ timedata, type, body }) {
+export default function Card({ timedata, type, body, author, story_url, toggleFavorites, object_id }) {
+  const dataSave = {timedata , body, author , story_url , object_id}
   return (
     <StyleDiv>
-      <StyleBody>
-        <StyleContainer>
+      <StyleBody href={story_url} target="_blank">
+        <StyleContainer  >
           <Icon type="time"></Icon>
-          <p>{timedata}</p>
+          <p>{timedata} by {author}</p>
         </StyleContainer>
         <p>{body}</p>
       </StyleBody>
       <StyleHeart>
-        <Icon type={type}></Icon>
+        <Icon type={type} toggleFavorites={toggleFavorites} dataSave={dataSave} ></Icon>
       </StyleHeart>
     </StyleDiv>
   );
@@ -30,6 +31,7 @@ const StyleDiv = styled.div`
 `;
 
 const StyleContainer = styled.div`
+  text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: start;
@@ -55,7 +57,8 @@ const StyleHeart = styled.div`
   background-color: rgb(96, 96, 96, 0.06);
 `;
 
-const StyleBody = styled.div`
+const StyleBody = styled.a`
+  text-decoration:none;
   display:flex;
   flex-direction:column;
   padding-left: 26px;

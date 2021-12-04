@@ -1,10 +1,14 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 
-export default function Pagination() {
+export default function Pagination({page , setPage}) {
 
   const [select, setSelect] = useState(1)
   const [offsetValue , setOffsetValue] = useState(0)
+
+  useEffect(()=>{
+    setSelect(page)
+  },[])
 
   useEffect(()=>{
     if(select >= 10){
@@ -13,6 +17,7 @@ export default function Pagination() {
     else {
       setOffsetValue(0)
     }
+    setPage(select)
 
   },[select])
   
@@ -21,11 +26,11 @@ export default function Pagination() {
   const data = dimentionPagination.map( item => {
     switch (item){
       case 0:
-        return <StyleIl select={select} data = "minus" onClick={()=>{select == 1 ? setSelect(select) : setSelect(select - 1)}} >{"<"}</StyleIl>
+        return <StyleIl key={item} select={select} data = "minus" onClick={()=>{select == 1 ? setSelect(select) : setSelect(select - 1)}} >{"<"}</StyleIl>
       case 10:
-        return <StyleIl select={select} data = "plus" onClick={()=>{setSelect(select + 1)}}>{">"}</StyleIl>
+        return <StyleIl key={item} select={select} data = "plus" onClick={()=>{setSelect(select + 1)}}>{">"}</StyleIl>
       default:
-        return <StyleIl select={select} data = {item+offsetValue} onClick={()=>{setSelect(item)}}> {item+offsetValue}</StyleIl>
+        return <StyleIl key={item} select={select} data = {item+offsetValue} onClick={()=>{setSelect(item + offsetValue)}}> {item+offsetValue}</StyleIl>
     }
 
 })
