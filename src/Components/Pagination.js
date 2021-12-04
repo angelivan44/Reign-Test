@@ -1,14 +1,19 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 
-export default function Pagination({page , setPage}) {
+export default function Pagination({page , setPage , status , favoritePage, setFavoritePage}) {
 
   const [select, setSelect] = useState(1)
   const [offsetValue , setOffsetValue] = useState(0)
 
   useEffect(()=>{
-    setSelect(page)
-  },[])
+    if(status=="All"){
+      setSelect(page)
+    }else {
+      setSelect(favoritePage)
+    }
+    
+  },[status])
 
   useEffect(()=>{
     if(select >= 10){
@@ -17,7 +22,11 @@ export default function Pagination({page , setPage}) {
     else {
       setOffsetValue(0)
     }
-    setPage(select)
+    if(status =="All"){
+      setPage(select)
+    }else {
+      setFavoritePage(select)
+    }
 
   },[select])
   

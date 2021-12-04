@@ -14,14 +14,14 @@ const StyleDiv = styled.div`
   border-radius: 2px;
   border: solid 1px ${props => props.status == props.content ? "#1797ff" : "#000"};
   display: flex;
-  align-items: center;
+  align-items:center;
   justify-content: center;
   & p {
-    height: 28px;
+    margin:0;
+    padding:0;
     font-size: 16px;
     font-weight: 500;
     letter-spacing: normal;
-    text-align: center;
     color: ${props => props.status == props.content ? "#1797ff" : "#000"};
   }
 `;

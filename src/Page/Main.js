@@ -10,8 +10,9 @@ import apiFetch from "../services/ApiFetch";
 export default function Main() {
   const [status, setStatus] = useState("All");
   const [query, setQuery] = useState("reactjs");
-  const [page, setPage] = useState(0);
-  const [favoritesIds , setFavoritesIds] = useState([])
+  const [page, setPage] = useState(1);
+  const [favoritePage , setFavoritePage] = useState(1)
+  const [favoritesIds, setFavoritesIds] = useState([]);
   const [store, setStore] = useState([]);
 
   const [dataApi, setDataApi] = useState({ hits: [] });
@@ -24,34 +25,47 @@ export default function Main() {
   useEffect(() => {
     const newStore = JSON.parse(localStorage.getItem("favorites")) || [];
     const idsFavorites = JSON.parse(localStorage.getItem("favoritesIds")) || [];
-    setStore(newStore)
-    setFavoritesIds(idsFavorites)
+    const currentPage = JSON.parse(localStorage.getItem("page")) || 1;
+    const currentFavoritePage = JSON.parse(localStorage.getItem("favoritepage")) || 1;
+
+    setStore(newStore);
+    setFavoritesIds(idsFavorites);
+    setPage(currentPage)
+    setFavoritePage(currentFavoritePage)
   }, []);
 
-  const toggleFavorites = (dataSave) => {
+  useEffect(()=>{
+    localStorage.setItem("page",page)
+  },[page])
 
-    const isFavorite = store.find(data => data.object_id == dataSave.object_id)
-    
+  useEffect(()=>{
+    localStorage.setItem("favoritepage",favoritePage)
+  },[favoritePage])
+
+  const toggleFavorites = (dataSave) => {
+    const isFavorite = store.find(
+      (data) => data.object_id == dataSave.object_id
+    );
+
     if (isFavorite) {
-      const filteStore = store.filter(item => {
-        return item.object_id != isFavorite.object_id
-      })
-      const filterFavorite = favoritesIds.filter(item => {
-        return item != isFavorite.object_id
-      })
-      setStore(filteStore)
-      setFavoritesIds(filterFavorite)
-      localStorage.setItem("favorites",JSON.stringify(filteStore))
-      localStorage.setItem("favoritesIds",JSON.stringify(filterFavorite))
-    }else {
-      const deleStore = [...store,{...dataSave}]
-      const deleFavoriteIds = [...favoritesIds,dataSave.object_id]
-      setStore(deleStore)
-      setFavoritesIds(deleFavoriteIds)
-      localStorage.setItem("favorites",JSON.stringify(deleStore))
-      localStorage.setItem("favoritesIds",JSON.stringify(deleFavoriteIds))
+      const filteStore = store.filter((item) => {
+        return item.object_id != isFavorite.object_id;
+      });
+      const filterFavorite = favoritesIds.filter((item) => {
+        return item != isFavorite.object_id;
+      });
+      setStore(filteStore);
+      setFavoritesIds(filterFavorite);
+      localStorage.setItem("favorites", JSON.stringify(filteStore));
+      localStorage.setItem("favoritesIds", JSON.stringify(filterFavorite));
+    } else {
+      const deleStore = [...store, { ...dataSave }];
+      const deleFavoriteIds = [...favoritesIds, dataSave.object_id];
+      setStore(deleStore);
+      setFavoritesIds(deleFavoriteIds);
+      localStorage.setItem("favorites", JSON.stringify(deleStore));
+      localStorage.setItem("favoritesIds", JSON.stringify(deleFavoriteIds));
     }
-  
   };
   const dataCards = dataApi.hits
     .slice(0, 8)
@@ -64,26 +78,29 @@ export default function Main() {
         author={data.author}
         type={favoritesIds.includes(data.objectID) ? "favorite" : "nofavorite"}
         body={data.story_title}
-        object_id = {data.objectID}
+        object_id={data.objectID}
         toggleFavorites={toggleFavorites}
       ></Card>
     ));
 
-    const dataFavorites = store.map(data => (
-    <Card key={data.object_id}
+  const dataFavorites = store.slice((favoritePage-1)*8,(favoritePage*8)).map((data) => (
+    <Card
+      key={data.object_id}
       story_url={data.story_url}
       timedata={data.timedata}
       author={data.author}
       type={favoritesIds.includes(data.object_id) ? "favorite" : "nofavorite"}
       body={data.body}
-      object_id = {data.object_id}
-      toggleFavorites={toggleFavorites}></Card>) );
+      object_id={data.object_id}
+      toggleFavorites={toggleFavorites}
+    ></Card>
+  ));
 
-      const setData = {
-        "All": dataCards,
-        "My faves" : dataFavorites
-      }
-      
+  const setData = {
+    All: dataCards,
+    "My faves": dataFavorites,
+  };
+
   return (
     <StyleDiv>
       <header>HACKER NEWS</header>
@@ -100,10 +117,12 @@ export default function Main() {
             onClick={() => setStatus("My faves")}
           ></Tab>
         </StyleToggle>
-        <Search query={query} setQuery={setQuery}></Search>
+        <StyleContainerSearch>
+          <Search query={query} setQuery={setQuery}></Search>
+        </StyleContainerSearch>
         <StyleContainer>{setData[status]}</StyleContainer>
       </main>
-      <Pagination page={page} setPage={setPage}></Pagination>
+      <Pagination status = {status} page={page} setPage={setPage} favoritePage={favoritePage} setFavoritePage={setFavoritePage}></Pagination>
     </StyleDiv>
   );
 }
@@ -111,7 +130,7 @@ export default function Main() {
 const StyleDiv = styled.div`
   width: 100vw;
   height: 100vh;
-  padding: 0 0 98px;
+  padding: 0;
   background-color: #fcfcfc;
   & header {
     display: flex;
@@ -121,9 +140,12 @@ const StyleDiv = styled.div`
     padding-left: 150px;
     width: 100%;
     height: 114px;
+    box-shadow: 0 1px 4px 0 rgba(0, 21, 41, 0.12);
+    background-image: linear-gradient(to bottom, #ececec -32%, #fff 124%);
   }
   & main {
     display: flex;
+    padding: 70px 98px;
     flex-direction: column;
     align-items: center;
   }
@@ -140,4 +162,8 @@ const StyleContainer = styled.div`
 
 const StyleToggle = styled.div`
   display: flex;
+`;
+
+const StyleContainerSearch = styled.div`
+  width: 100%;
 `;
