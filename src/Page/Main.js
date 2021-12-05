@@ -11,36 +11,47 @@ export default function Main() {
   const [status, setStatus] = useState("All");
   const [query, setQuery] = useState("reactjs");
   const [page, setPage] = useState(1);
-  const [favoritePage , setFavoritePage] = useState(1)
+  const [favoritePage, setFavoritePage] = useState(1);
   const [favoritesIds, setFavoritesIds] = useState([]);
   const [store, setStore] = useState([]);
 
   const [dataApi, setDataApi] = useState({ hits: [] });
 
-  useEffect(async () => {
+  const requestApi = async () => {
     const newData = await apiFetch(query, page);
+    console.log(newData);
     setDataApi(newData);
+  };
+
+  useEffect(() => {
+    requestApi();
   }, [query, page]);
 
   useEffect(() => {
     const newStore = JSON.parse(localStorage.getItem("favorites")) || [];
     const idsFavorites = JSON.parse(localStorage.getItem("favoritesIds")) || [];
-    const currentPage = JSON.parse(localStorage.getItem("page")) || 1;
-    const currentFavoritePage = JSON.parse(localStorage.getItem("favoritepage")) || 1;
+    const currentPage = localStorage.getItem("page") || 1;
+    const currentFavoritePage = localStorage.getItem("favoritepage") || 1;
+    const currentQuery = localStorage.getItem("query") || "reactjs";
 
     setStore(newStore);
     setFavoritesIds(idsFavorites);
-    setPage(currentPage)
-    setFavoritePage(currentFavoritePage)
+    setPage(currentPage);
+    setFavoritePage(currentFavoritePage);
+    setQuery(currentQuery);
   }, []);
 
-  useEffect(()=>{
-    localStorage.setItem("page",page)
-  },[page])
+  useEffect(() => {
+    localStorage.setItem("page", page);
+  }, [page]);
 
-  useEffect(()=>{
-    localStorage.setItem("favoritepage",favoritePage)
-  },[favoritePage])
+  useEffect(() => {
+    localStorage.setItem("favoritepage", favoritePage);
+  }, [favoritePage]);
+
+  useEffect(() => {
+    localStorage.setItem("query", query);
+  }, [query]);
 
   const toggleFavorites = (dataSave) => {
     const isFavorite = store.find(
@@ -83,18 +94,20 @@ export default function Main() {
       ></Card>
     ));
 
-  const dataFavorites = store.slice((favoritePage-1)*8,(favoritePage*8)).map((data) => (
-    <Card
-      key={data.object_id}
-      story_url={data.story_url}
-      timedata={data.timedata}
-      author={data.author}
-      type={favoritesIds.includes(data.object_id) ? "favorite" : "nofavorite"}
-      body={data.body}
-      object_id={data.object_id}
-      toggleFavorites={toggleFavorites}
-    ></Card>
-  ));
+  const dataFavorites = store
+    .slice((favoritePage - 1) * 8, favoritePage * 8)
+    .map((data) => (
+      <Card
+        key={data.object_id}
+        story_url={data.story_url}
+        timedata={data.timedata}
+        author={data.author}
+        type={favoritesIds.includes(data.object_id) ? "favorite" : "nofavorite"}
+        body={data.body}
+        object_id={data.object_id}
+        toggleFavorites={toggleFavorites}
+      ></Card>
+    ));
 
   const setData = {
     All: dataCards,
@@ -122,7 +135,15 @@ export default function Main() {
         </StyleContainerSearch>
         <StyleContainer>{setData[status]}</StyleContainer>
       </main>
-      <Pagination status = {status} page={page} setPage={setPage} favoritePage={favoritePage} setFavoritePage={setFavoritePage}></Pagination>
+      <StylePaginationContainer>
+        <Pagination
+          status={status}
+          page={page}
+          setPage={setPage}
+          favoritePage={favoritePage}
+          setFavoritePage={setFavoritePage}
+        ></Pagination>
+      </StylePaginationContainer>
     </StyleDiv>
   );
 }
@@ -166,4 +187,10 @@ const StyleToggle = styled.div`
 
 const StyleContainerSearch = styled.div`
   width: 100%;
+`;
+
+const StylePaginationContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `;

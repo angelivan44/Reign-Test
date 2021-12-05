@@ -28,6 +28,9 @@ const StyleDiv = styled.div`
   border: solid 1px #979797;
   align-items: center;
   border-radius: 5px;
+  &:hover  {
+    opacity:60%;
+  }
 `;
 
 const StyleContainer = styled.div`
@@ -75,4 +78,5 @@ const StyleBody = styled.a`
     font-size: 14px;
     margin:0;
   }
+  
 `;

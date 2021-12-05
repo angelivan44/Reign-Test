@@ -16,24 +16,23 @@ export default function Search({query, setQuery}) {
             setToggle(!toggle);
             setQuery("angular");
           }}
-        >
-          <Icon type="angular"></Icon>Angular
+        ><div><Icon type="angular"></Icon>Angular</div>
+          
         </li>
         <li
           onClick={() => {
             setToggle(!toggle);
             setQuery("reactjs");
           }}
-        >
-          <Icon type="react"></Icon>Reacts
+        ><div> <Icon type="react"></Icon>Reacts</div>
         </li>
         <li
           onClick={() => {
             setToggle(!toggle);
             setQuery("vuejs");
           }}
-        >
-          <Icon type="vue"></Icon>Vuejs
+        ><div><Icon type="vue"></Icon>Vuejs</div>
+          
         </li>
       </StyleUl>
     </StyleContainer>
@@ -66,16 +65,18 @@ const StyleUl = styled.ul`
   padding-right: 0;
   box-sizing: border-box;
   box-shadow: 0 2px 2px 0 #dad8d8;
-  & li {
+  & li div {
     font-size: 14px;
     display: flex;
     align-items: center;
     justify-content: start;
     height: 46px;
     gap: 13px;
-    & :hover {
-      background-color: #eaeaea;
+
+    &:hover {
+      background-color:#eaeaea;
     }
+
   }
 `;
 
