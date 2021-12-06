@@ -1,10 +1,11 @@
-# Getting Started with Create React App
+# Hacker News Front Challenge React App
 
 This project is a front tecnical challenge
-## Available Scripts
+## Frameworks
 
-In the project directory, you can run:
+Reactjs -v 17.02
 
+### `How to run`
 ### `yarn start`
 
 Runs the app in the development mode.\
@@ -29,9 +30,8 @@ Your app is ready to be deployed!
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
 
-## Libraries
+## Libraries used
 
-the libraries use :
 -moment js
 -emotion syled
 
@@ -41,3 +41,11 @@ the libraries use :
 https://elastic-wescoff-369656.netlify.app/
 
 ### How to use
+
+select your Framework
+
+select your favorite new
+
+select a page
+
+view your favorite news
