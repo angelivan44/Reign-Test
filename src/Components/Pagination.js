@@ -55,6 +55,8 @@ const StyleUl = styled.ul`
   display: flex;
   list-style:none;
   gap:8px;
+  @media(max-width : 375px){
+    width:300px;}
 `;
 
 const StyleIl = styled.li`

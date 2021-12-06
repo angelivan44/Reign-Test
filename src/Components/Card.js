@@ -31,6 +31,9 @@ const StyleDiv = styled.div`
   &:hover  {
     opacity:60%;
   }
+  @media(max-width : 375px){
+    width:300px;
+  }
 `;
 
 const StyleContainer = styled.div`
@@ -78,5 +81,8 @@ const StyleBody = styled.a`
     font-size: 14px;
     margin:0;
   }
-  
+
+  @media(max-width : 375px){
+    width:200px;
+  }
 `;

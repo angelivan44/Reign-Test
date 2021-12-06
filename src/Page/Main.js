@@ -163,13 +163,20 @@ const StyleDiv = styled.div`
     height: 114px;
     box-shadow: 0 1px 4px 0 rgba(0, 21, 41, 0.12);
     background-image: linear-gradient(to bottom, #ececec -32%, #fff 124%);
+    @media(max-width : 375px){
+      padding-left: 0;
+      justify-content:center;}
   }
   & main {
     display: flex;
     padding: 70px 98px;
     flex-direction: column;
     align-items: center;
-  }
+    @media(max-width : 375px){
+      width:100%;
+      padding: 0;
+  }}
+
 `;
 
 const StyleContainer = styled.div`
@@ -179,6 +186,10 @@ const StyleContainer = styled.div`
   grid-template-columns: 1fr 1fr;
   row-gap: 30px;
   column-gap: 40px;
+  @media(max-width : 375px){
+    grid-template-columns: 1fr;
+    place-items: center;
+  }
 `;
 
 const StyleToggle = styled.div`
@@ -186,7 +197,11 @@ const StyleToggle = styled.div`
 `;
 
 const StyleContainerSearch = styled.div`
+  margin:63px 0 0 0;
   width: 100%;
+  @media(max-width : 375px){
+    display:flex;
+    justify-content:center;}
 `;
 
 const StylePaginationContainer = styled.div`

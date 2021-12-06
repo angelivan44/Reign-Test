@@ -18,6 +18,7 @@ const setIcon = {
 export default function Icon({ type, toggleFavorites, dataSave }) {
   return (
     <StyleImg
+      data-testid="icon"
       type={type}
       src={setIcon[type]}
       onClick={() => {
