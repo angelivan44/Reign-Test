@@ -60,6 +60,7 @@ const StyleUl = styled.ul`
 `;
 
 const StyleIl = styled.li`
+    cursor: pointer;
     display:flex;
     width:32px;
     height:32px;

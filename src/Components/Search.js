@@ -83,4 +83,5 @@ const StyleUl = styled.ul`
 const StyleContainer = styled.div`
   position: relative;
   width: 240px;
+  cursor: pointer;
 `;

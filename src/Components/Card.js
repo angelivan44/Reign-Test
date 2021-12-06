@@ -28,6 +28,7 @@ const StyleDiv = styled.div`
   border: solid 1px #979797;
   align-items: center;
   border-radius: 5px;
+  cursor: pointer;
   &:hover  {
     opacity:60%;
   }
