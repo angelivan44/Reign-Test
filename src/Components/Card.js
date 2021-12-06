@@ -20,8 +20,9 @@ export default function Card({ timedata, type, body, author, story_url, toggleFa
 }
 
 const StyleDiv = styled.div`
-  width: 550px;
   height: 90px;
+  max-width:550px;
+  width:30rem;
   background-color: #fcfcfc;
   display: flex;
   justify-content: space-between;

@@ -183,11 +183,10 @@ const StyleContainer = styled.div`
   display: grid;
   width: 100%;
   padding: 38px 150px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat( auto-fit, minmax(375px, 1fr) );
   row-gap: 30px;
   column-gap: 40px;
   @media(max-width : 375px){
-    grid-template-columns: 1fr;
     place-items: center;
   }
 `;
