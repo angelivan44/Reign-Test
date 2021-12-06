@@ -19,7 +19,6 @@ export default function Main() {
 
   const requestApi = async () => {
     const newData = await apiFetch(query, page);
-    console.log(newData);
     setDataApi(newData);
   };
 

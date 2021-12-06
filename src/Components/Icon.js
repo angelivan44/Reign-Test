@@ -23,7 +23,6 @@ export default function Icon({ type, toggleFavorites, dataSave }) {
       src={setIcon[type]}
       onClick={() => {
         toggleFavorites(dataSave);
-        console.log(dataSave)
       }}
     />
   );
